@@ -1,2 +1,5 @@
-/nbproject/
+nbproject/
 
+vendor/
+
+connect.php
