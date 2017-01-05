@@ -87,7 +87,23 @@ class User {
         }
     }
     
-    // reszta jutro...
+    public function saveUserToDb(mysqli $conn) {
+        if ($this->userId == -1) {
+            $statement = $conn->prepare("INSERT INTO User(user_address, user_email, user_name, "
+                    . "user_password, user_surname) VALUES(?,?,?,?,?)");
+            $statement->bind_param('sssss', $this->userAddress, $this->userEmail, $this->userName,
+                    $this->userPassword, $this->userSurname);
+            if ($statement->execute()) {
+                $this->userId = $statement->insert_id;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            // zrobić update oddzielnie
+        }
+    }
+
     
 
     
