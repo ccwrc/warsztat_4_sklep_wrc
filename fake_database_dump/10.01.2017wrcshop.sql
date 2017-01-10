@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 05, 2017 at 09:55 PM
+-- Generation Time: Jan 10, 2017 at 04:47 PM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -19,6 +19,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `wrcshop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Admin`
+--
+
+CREATE TABLE `Admin` (
+  `admin_id` int(11) NOT NULL,
+  `admin_email` varchar(250) COLLATE utf8_polish_ci NOT NULL,
+  `admin_password` varchar(250) COLLATE utf8_polish_ci NOT NULL,
+  `admin_name` varchar(250) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Dumping data for table `Admin`
+--
+
+INSERT INTO `Admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`) VALUES
+(3, 'admin1@gmail.elo', '$2y$10$C5JCDU7aAe.Dnb.vBMbcVu/r5BfvMUI8lrnrtFUHu5wIGUnJNp9Ve', 'admin1');
 
 -- --------------------------------------------------------
 
@@ -49,6 +69,13 @@ INSERT INTO `User` (`user_id`, `user_name`, `user_surname`, `user_email`, `user_
 --
 
 --
+-- Indexes for table `Admin`
+--
+ALTER TABLE `Admin`
+  ADD PRIMARY KEY (`admin_id`),
+  ADD UNIQUE KEY `admin_email` (`admin_email`);
+
+--
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
@@ -59,6 +86,11 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `Admin`
+--
+ALTER TABLE `Admin`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `User`
 --
