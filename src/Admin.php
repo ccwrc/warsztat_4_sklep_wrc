@@ -31,6 +31,7 @@ class Admin {
     
     public function setAdminName($name) {
         $name = htmlentities($name, ENT_QUOTES, "UTF-8");
+        
         if (is_string($name) && (strlen($name) <= 250)) {
             $this->adminName = $name;
             return $this;
@@ -41,6 +42,7 @@ class Admin {
     
     public function setAdminEmail($email) {
         $email = htmlentities($email, ENT_QUOTES, "UTF-8");
+        
         if (is_string($email) && (strlen($email) <= 250)) {
             $this->adminEmail = $email;
             return $this;
