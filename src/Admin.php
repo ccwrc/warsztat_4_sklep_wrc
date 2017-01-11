@@ -100,8 +100,38 @@ class Admin {
             return null;
         }
      }
-    
-
+     
+    static public function loadAdminByEmail(mysqli $conn, $email){
+        $email = htmlentities($email, ENT_QUOTES, "UTF-8");
+        $email = $conn->real_escape_string($email);
+        
+        $sql = "SELECT * FROM Admin WHERE admin_email = '$email'";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedAdmin = new Admin();
+        $loadedAdmin->adminId = $row['admin_id'];
+        $loadedAdmin->adminName = $row['admin_name'];
+        $loadedAdmin->adminPassword = $row['admin_password'];
+        $loadedAdmin->adminEmail = $row['admin_email'];
+        return $loadedAdmin;
+        } else {
+            return null;
+        }
+     }
+     
+     static public function deleteAdminFromDbById(mysqli $conn, $id) {
+         $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+         $id = $conn->real_escape_string($id);
+         
+         $sql = "DELETE FROM Admin WHERE admin_id = $id";
+         if ($result = $conn->query($sql)) {
+             return true;
+         } else {
+             return false;
+         }
+     }
     
     
 }
