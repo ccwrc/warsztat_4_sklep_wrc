@@ -69,11 +69,39 @@ class Admin {
                 return false;
             }
         } else {
-            // zrobić update oddzielnie
-        }
+            $statement = $conn->prepare("UPDATE Admin SET admin_name = ?, admin_email = ?, "
+                    . "admin_password = ? WHERE admin_id = ?");
+            $statement->bind_param('sssi', $this->adminName, $this->adminEmail, 
+                    $this->adminPassword, $this->adminId);
+            if ($statement->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
     }
     
+    static public function loadAdminById(mysqli $conn, $id){
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+        
+        $sql = "SELECT * FROM Admin WHERE admin_id = $id";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedAdmin = new Admin();
+        $loadedAdmin->adminId = $row['admin_id'];
+        $loadedAdmin->adminName = $row['admin_name'];
+        $loadedAdmin->adminPassword = $row['admin_password'];
+        $loadedAdmin->adminEmail = $row['admin_email'];
+        return $loadedAdmin;
+        } else {
+            return null;
+        }
+     }
     
+
     
     
 }
