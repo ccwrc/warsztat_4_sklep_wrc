@@ -91,10 +91,72 @@ class Item {
             } else {
                 return false;
             }
+        } else {
+            $statement = $conn->prepare("UPDATE Item SET item_name = ?, item_description = ?, "
+                    . "item_price = ?, item_quantity = ? WHERE item_id = ?");
+            $statement->bind_param('ssdii', $this->itemName, $this->itemDescription, 
+                    $this->itemPrice, $this->itemQuantity, $this->itemId);
+            if ($statement->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         } 
     }
     
-    
-    
+    static public function loadItemById(mysqli $conn, $id){
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+        
+        $sql = "SELECT * FROM Item WHERE item_id = $id";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedItem = new Item();
+        $loadedItem->itemId = $row['item_id'];
+        $loadedItem->itemDescription = $row['item_description'];
+        $loadedItem->itemName = $row['item_name'];
+        $loadedItem->itemPrice = $row['item_price'];
+        $loadedItem->itemQuantity = $row['item_quantity'];
+        return $loadedItem;
+        } else {
+            return null;
+        }
+     }
+     
+    static public function loadItemByItemName(mysqli $conn, $name){
+        $name = htmlentities($name, ENT_QUOTES, "UTF-8");
+        $name = $conn->real_escape_string($name);
+        
+        $sql = "SELECT * FROM Item WHERE item_name = '$name'";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedItem = new Item();
+        $loadedItem->itemId = $row['item_id'];
+        $loadedItem->itemDescription = $row['item_description'];
+        $loadedItem->itemName = $row['item_name'];
+        $loadedItem->itemPrice = $row['item_price'];
+        $loadedItem->itemQuantity = $row['item_quantity'];
+        return $loadedItem;
+        } else {
+            return null;
+        }
+     }
+     
+     static public function deleteItemFromDbById(mysqli $conn, $id) {
+         $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+         $id = $conn->real_escape_string($id);
+         
+         $sql = "DELETE FROM Item WHERE item_id = $id";
+         if ($result = $conn->query($sql)) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+ 
 
 }
