@@ -6,6 +6,7 @@ class Item {
     private $itemName;
     private $itemPrice;
     private $itemQuantity;
+    private $itemCategoryId;
     
     public function __construct() {
         $this->itemDescription = "";
@@ -13,6 +14,7 @@ class Item {
         $this->itemName = "";
         $this->itemPrice = "";
         $this->itemQuantity = 0;
+        $this->itemCategoryId = 0;
     }
     
     public function getItemDescription() {
@@ -33,6 +35,10 @@ class Item {
     
     public function getItemQuantity() {
         return $this->itemQuantity;
+    }
+    
+    public function getItemCategoryId() {
+        return $this->itemCategoryId;
     }
     
     public function setItemDescription($description) {
@@ -79,12 +85,23 @@ class Item {
         }
     }
     
+    public function setItemCategoryId($category) {
+        $category = htmlentities($category, ENT_QUOTES, "UTF-8");
+        
+        if (is_numeric($category) && (($category) >= 0)) {
+            $this->itemCategoryId = $category;
+            return $this;
+        } else {
+            return false;
+        }
+    }
+    
     public function saveItemToDb(mysqli $conn) {
         if ($this->itemId == -1) {
             $statement = $conn->prepare("INSERT INTO Item(item_description, item_name, "
-                    . "item_price, item_quantity) VALUES(?,?,?,?)");
-            $statement->bind_param('ssdi', $this->itemDescription, $this->itemName, 
-                    $this->itemPrice, $this->itemQuantity);
+                    . "item_price, item_quantity, item_category_id) VALUES(?,?,?,?,?)");
+            $statement->bind_param('ssdii', $this->itemDescription, $this->itemName, 
+                    $this->itemPrice, $this->itemQuantity, $this->itemCategoryId);
             if ($statement->execute()) {
                 $this->itemId = $statement->insert_id;
                 return true;
@@ -93,9 +110,9 @@ class Item {
             }
         } else {
             $statement = $conn->prepare("UPDATE Item SET item_name = ?, item_description = ?, "
-                    . "item_price = ?, item_quantity = ? WHERE item_id = ?");
-            $statement->bind_param('ssdii', $this->itemName, $this->itemDescription, 
-                    $this->itemPrice, $this->itemQuantity, $this->itemId);
+                    . "item_price = ?, item_quantity = ?, item_category_id = ? WHERE item_id = ?");
+            $statement->bind_param('ssdiii', $this->itemName, $this->itemDescription, 
+                    $this->itemPrice, $this->itemQuantity, $this->itemCategoryId, $this->itemId);
             if ($statement->execute()) {
                 return true;
             } else {
@@ -119,6 +136,7 @@ class Item {
         $loadedItem->itemName = $row['item_name'];
         $loadedItem->itemPrice = $row['item_price'];
         $loadedItem->itemQuantity = $row['item_quantity'];
+        $loadedItem->itemCategoryId = $row['item_category_id'];
         return $loadedItem;
         } else {
             return null;
@@ -140,6 +158,7 @@ class Item {
         $loadedItem->itemName = $row['item_name'];
         $loadedItem->itemPrice = $row['item_price'];
         $loadedItem->itemQuantity = $row['item_quantity'];
+        $loadedItem->itemCategoryId = $row['item_category_id'];
         return $loadedItem;
         } else {
             return null;
