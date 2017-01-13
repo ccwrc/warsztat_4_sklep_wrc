@@ -28,6 +28,63 @@ class Category {
         }
     }
     
+    public function saveCategoryToDb(mysqli $conn) {
+        if ($this->categoryId == -1) {
+            $statement = $conn->prepare("INSERT INTO Category(category_id, category_name) VALUES(?,?)");
+            $statement->bind_param('is', $this->categoryId, $this->categoryName);
+            if ($statement->execute()) {
+                $this->categoryId = $statement->insert_id;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            $statement = $conn->prepare("UPDATE Category SET category_name = ? WHERE category_id = ?");
+            $statement->bind_param('si', $this->categoryName, $this->categoryId);
+            if ($statement->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
+    }
+    
+    static public function loadCategoryById(mysqli $conn, $id){
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+        
+        $sql = "SELECT * FROM Category WHERE category_id = $id";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedCategory = new Category();
+        $loadedCategory->categoryId = $row['category_id'];
+        $loadedCategory->categoryName = $row['category_name'];
+        return $loadedCategory;
+        } else {
+            return null;
+        }
+     }
+     
+    static public function loadCategoryByName(mysqli $conn, $name){
+        $name = htmlentities($name, ENT_QUOTES, "UTF-8");
+        $name = $conn->real_escape_string($name);
+        
+        $sql = "SELECT * FROM Category WHERE category_name = '$name'";
+        $result = $conn->query($sql);
+        
+        if($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $loadedCategory = new Category();
+        $loadedCategory->categoryId = $row['category_id'];
+        $loadedCategory->categoryName = $row['category_name'];
+        return $loadedCategory;
+        } else {
+            return null;
+        }
+     }
+    
     
 }
 
