@@ -125,7 +125,7 @@ class Admin {
          $id = htmlentities($id, ENT_QUOTES, "UTF-8");
          $id = $conn->real_escape_string($id);
          
-         $sql = "DELETE FROM Admin WHERE admin_id = $id";
+         $sql = "DELETE FROM Admin WHERE admin_id = $id LIMIT 1";
          if ($result = $conn->query($sql)) {
              return true;
          } else {

@@ -30,8 +30,8 @@ class Category {
     
     public function saveCategoryToDb(mysqli $conn) {
         if ($this->categoryId == -1) {
-            $statement = $conn->prepare("INSERT INTO Category(category_id, category_name) VALUES(?,?)");
-            $statement->bind_param('is', $this->categoryId, $this->categoryName);
+            $statement = $conn->prepare("INSERT INTO Category(category_name) VALUES(?)");
+            $statement->bind_param('s', $this->categoryName);
             if ($statement->execute()) {
                 $this->categoryId = $statement->insert_id;
                 return true;
