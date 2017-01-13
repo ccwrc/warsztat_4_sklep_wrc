@@ -84,7 +84,36 @@ class Category {
             return null;
         }
      }
+     
+    static public function loadAllCategories(mysqli $conn) {
+        $sql = "SELECT * FROM Category";
+        $ret = [];
+
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows != 0) {
+
+            foreach ($result as $row) {
+                $loadedCategory = new Category();
+                $loadedCategory->categoryId = $row['category_id'];
+                $loadedCategory->categoryName = $row['category_name'];
+                $ret[] = $loadedCategory;
+            }
+        }
+        return $ret;
+    }
     
+     static public function deleteCategoryFromDbById(mysqli $conn, $id) {
+         $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+         $id = $conn->real_escape_string($id);
+         
+         $sql = "DELETE FROM Category WHERE category_id = $id LIMIT 1";
+         if ($result = $conn->query($sql)) {
+             return true;
+         } else {
+             return false;
+         }
+     }
     
+
 }
 
