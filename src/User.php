@@ -156,16 +156,37 @@ class User {
         }
      }
      
-     static public function deleteUserFromDbById(mysqli $conn, $id) {
-         $id = htmlentities($id, ENT_QUOTES, "UTF-8");
-         $id = $conn->real_escape_string($id);
-         
-         $sql = "DELETE FROM User WHERE user_id = $id LIMIT 1";
-         if ($result = $conn->query($sql)) {
-             return true;
-         } else {
-             return false;
-         }
-     }
-    
+    static public function loadAllUsers(mysqli $conn) {
+        $sql = "SELECT * FROM User";
+        $ret = [];
+
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows != 0) {
+
+            foreach ($result as $row) {
+                $loadedUser = new User();
+                $loadedUser->userAddress = $row['user_address'];
+                $loadedUser->userEmail = $row['user_email'];
+                $loadedUser->userId = $row['user_id'];
+                $loadedUser->userName = $row['user_name'];
+                $loadedUser->userPassword = $row['user_password'];
+                $loadedUser->userSurname = $row['user_surname'];
+                $ret[] = $loadedUser;
+            }
+        }
+        return $ret;
+    }
+     
+    static public function deleteUserFromDbById(mysqli $conn, $id) {
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+
+        $sql = "DELETE FROM User WHERE user_id = $id LIMIT 1";
+        if ($result = $conn->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2017 at 04:55 PM
+-- Generation Time: Jan 13, 2017 at 06:21 PM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -51,6 +51,16 @@ CREATE TABLE `Category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Dumping data for table `Category`
+--
+
+INSERT INTO `Category` (`category_id`, `category_name`) VALUES
+(4, 'heble'),
+(1, 'kierowcy'),
+(3, 'kierownice'),
+(2, 'pojazdy, klasa 1600');
 
 -- --------------------------------------------------------
 
@@ -115,7 +125,12 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`user_id`, `user_name`, `user_surname`, `user_email`, `user_password`, `user_address`) VALUES
-(3, 'Jjanek', 'nowe nazwisko, kt&oacute;rtkie', 'maildd@mail.celo', '$2y$10$oLzPl08xNX1Yci6Do8rYd./0kn20lasqAx992sv0Apn7k2zrbfzIW', 0x6431316f64646c696e6961726b6120733131);
+(4, 'name1', 'surname1', 'mail1@elo.gmail', '$2y$10$ppC3u0BXjZOzVEyfrBzSfuNnYYVZ98JU5bknp.Erc/2KEc6oLLvIK', 0x61647265732031),
+(5, 'name1', 'surname1', 'mail2@elo.gmail', '$2y$10$0c8JJA8bwfm2cdfTqs/J.uLtb.rO3SjBrMdyulPK86D.3QUfUVusi', 0x61647265732031),
+(6, 'name1', 'surname1', 'mail3@elo.gmail', '$2y$10$4JtxuwQdN2a82C4aJUkF4uQq.BktKp9GOP0isYrlZu/L.yxfKOJV2', 0x61647265732031),
+(7, 'name1', 'surname1', 'mail4@elo.gmail', '$2y$10$U5Me2v9ue1Ce6/bG.mdUTOt9vg9UbDdx4mlIQ2XCmKda/Fzmbux72', 0x61647265732031),
+(8, 'name1', 'surname1', 'mail5@elo.gmail', '$2y$10$jhb5N2iNJweWOLUgFgCHP.pf2tqXtsjy1bRjy8yW5QdLn6/4OHDdW', 0x61647265732031),
+(9, 'name1', 'surname1', 'mail7@elo.gmail', '$2y$10$Mh3A8f9eqX1Uck1hAuwJnu1nLPFDWjGyBxP3JHoHNrvydgvZZFhjy', 0x61647265732031);
 
 --
 -- Indexes for dumped tables
@@ -169,7 +184,7 @@ ALTER TABLE `Admin`
 -- AUTO_INCREMENT for table `Category`
 --
 ALTER TABLE `Category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `Item`
 --
@@ -184,7 +199,7 @@ ALTER TABLE `Photo`
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --
