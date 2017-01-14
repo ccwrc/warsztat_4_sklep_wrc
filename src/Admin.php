@@ -5,12 +5,14 @@ class Admin {
     private $adminId;
     private $adminEmail;
     private $adminPassword;
+    private $adminIsActive;
     
     public function __construct() {
         $this->adminName = "";
         $this->adminEmail = "";
         $this->adminId = -1;
         $this->adminPassword = "";
+        $this->adminIsActive = "no";
     }
     
     public function getAdminName() {
@@ -26,6 +28,10 @@ class Admin {
     }
     
     public function getAdminPassword() {
+        return $this->adminPassword;
+    }
+    
+    public function getAdminIsActive() {
         return $this->adminPassword;
     }
     
@@ -95,6 +101,7 @@ class Admin {
         $loadedAdmin->adminName = $row['admin_name'];
         $loadedAdmin->adminPassword = $row['admin_password'];
         $loadedAdmin->adminEmail = $row['admin_email'];
+        $loadedAdmin->adminIsActive = $row['admin_is_active'];
         return $loadedAdmin;
         } else {
             return null;
@@ -115,6 +122,7 @@ class Admin {
         $loadedAdmin->adminName = $row['admin_name'];
         $loadedAdmin->adminPassword = $row['admin_password'];
         $loadedAdmin->adminEmail = $row['admin_email'];
+        $loadedAdmin->adminIsActive = $row['admin_is_active'];
         return $loadedAdmin;
         } else {
             return null;
