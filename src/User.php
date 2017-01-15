@@ -43,6 +43,7 @@ class User {
     
     public function setUserAddress($address) {
         $address = htmlentities($address, ENT_QUOTES, "UTF-8");
+        
         if (is_string($address) && (strlen($address) <= 9000)) {
             $this->userAddress = $address;
             return $this;
@@ -53,6 +54,7 @@ class User {
     
     public function setUserEmail($email) {
         $email = htmlentities($email, ENT_QUOTES, "UTF-8");
+        
         if (is_string($email) && (strlen($email) <= 250) && 
                 filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->userEmail = $email;
@@ -64,6 +66,7 @@ class User {
     
     public function setUserName($name) {
         $name = htmlentities($name, ENT_QUOTES, "UTF-8");
+        
         if (is_string($name) && (strlen($name) <= 250)) {
             $this->userName = $name;
             return $this;
@@ -80,6 +83,7 @@ class User {
     
     public function setUserSurname($surname) {
         $surname = htmlentities($surname, ENT_QUOTES, "UTF-8");
+        
         if (is_string($surname) && (strlen($surname) <= 250)) {
             $this->userSurname = $surname;
             return $this;
