@@ -34,7 +34,7 @@ class Photo {
         }
     }
     
-    public function setPhotoPath($path) { // zastanowic sie nad sensem czyszcz encji tutaj...
+    public function setPhotoPath($path) {
         $path = htmlentities($path, ENT_QUOTES, "UTF-8");
         
         if (is_string($path) && (strlen($path) <= 255)) {
@@ -67,8 +67,50 @@ class Photo {
         } 
     }
     
+    static public function loadAllPhotosByItemId(mysqli $conn, $id) {
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+        
+        $sql = "SELECT * FROM Photo WHERE photo_item_id = $id";
+        $ret = [];
+
+        $result = $conn->query($sql);
+        if ($result && $result->num_rows != 0) {
+            foreach ($result as $row) {
+                $loadedPhoto = new Photo();
+                $loadedPhoto->photoId = $row['photo_id'];
+                $loadedPhoto->photoItemId = $row['photo_item_id'];
+                $loadedPhoto->photoPath = $row['photo_path'];
+                $ret[] = $loadedPhoto;
+            }
+        }
+        return $ret;
+    }
     
+    static public function deletePhotoById(mysqli $conn, $id) {
+        $id = htmlentities($id, ENT_QUOTES, "UTF-8");
+        $id = $conn->real_escape_string($id);
+
+        $sql = "DELETE FROM Photo WHERE photo_id = $id LIMIT 1";
+        if ($result = $conn->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
+    static public function deletePhotosByItemId(mysqli $conn, $ItemId) {
+        $ItemId = htmlentities($ItemId, ENT_QUOTES, "UTF-8");
+        $ItemId = $conn->real_escape_string($ItemId);
+
+        $sql = "DELETE FROM Photo WHERE photo_item_id = $ItemId";
+        if ($result = $conn->query($sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+   
     
 }
 
