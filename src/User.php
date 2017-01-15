@@ -53,7 +53,8 @@ class User {
     
     public function setUserEmail($email) {
         $email = htmlentities($email, ENT_QUOTES, "UTF-8");
-        if (is_string($email) && (strlen($email) <= 250)) {
+        if (is_string($email) && (strlen($email) <= 250) && 
+                filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->userEmail = $email;
             return $this;
         } else {
