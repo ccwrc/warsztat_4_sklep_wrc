@@ -12,7 +12,7 @@ class Orders {
         $this->orderUserId = "";
         $this->orderStatus = "waiting";
         $this->orderItems = "";
-        $this->orderDate = "";
+        $this->orderDate = date("Y-m-d H:i:s");
     }
     
     public function getOrderId() {
@@ -38,7 +38,7 @@ class Orders {
     public function setOrderUserId($id) {
         $id = htmlentities($id, ENT_QUOTES, "UTF-8");
         
-        if (is_int($id) && ($id >= 1)) {
+        if (is_numeric($id) && ($id >= 1)) {
             $this->orderUserId = $id;
             return $this;
         } else {
@@ -68,14 +68,37 @@ class Orders {
             return false;
         }
     }
-    
-    public function setOrderDate($date) {
-        $date = htmlentities($date, ENT_QUOTES, "UTF-8");
-        $this->orderDate = $date;
+    /*
+    public function setOrderDate() {
+       // $date = htmlentities($date, ENT_QUOTES, "UTF-8");
+        $this->orderDate = date("Y-m-d H:i:s");
         return $this;
-    }
+    } */
 
-    // 
+    public function saveOrderToDb(mysqli $conn) {
+        if ($this->orderId == -1) {
+            $statement = $conn->prepare("INSERT INTO Orders(order_user_id, order_status, "
+                    . "order_items, order_date) VALUES(?,?,?,?)");
+            $statement->bind_param('dsss', $this->orderUserId, $this->orderStatus, 
+                    $this->orderItems, $this->orderDate);
+            if ($statement->execute()) {
+                $this->orderId = $statement->insert_id;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            $statement = $conn->prepare("UPDATE Orders SET order_user_id = ?, order_status = ?, "
+                    . "order_items = ?, order_date = ? WHERE order_id = ?");
+            $statement->bind_param('isssi', $this->orderUserId, $this->orderStatus, 
+                    $this->orderItems, $this->orderDate, $this->orderId);
+            if ($statement->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
+    }
     
     
     

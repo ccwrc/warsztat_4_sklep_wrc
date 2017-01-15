@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2017 at 06:21 PM
+-- Generation Time: Jan 15, 2017 at 03:21 PM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -30,16 +30,20 @@ CREATE TABLE `Admin` (
   `admin_id` int(11) NOT NULL,
   `admin_email` varchar(250) COLLATE utf8_polish_ci NOT NULL,
   `admin_password` varchar(250) COLLATE utf8_polish_ci NOT NULL,
-  `admin_name` varchar(250) COLLATE utf8_polish_ci NOT NULL
+  `admin_name` varchar(250) COLLATE utf8_polish_ci NOT NULL,
+  `admin_is_active` varchar(10) COLLATE utf8_polish_ci DEFAULT 'no'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Dumping data for table `Admin`
 --
 
-INSERT INTO `Admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`) VALUES
-(2, 'admin2@gmail.elo', '$2y$10$QKAIfgZCDToqEKF6bXJppe.p2Q7VnX3rLI6q7gl5zwp2QQpaITTJG', 'admin2'),
-(4, 'admin4@gmail.elo', '$2y$10$omrwh.JeNo/n/ENMdfvrJeoEk3ph5FzzkPurnJGpp//MrtPgWtg9y', 'admin4');
+INSERT INTO `Admin` (`admin_id`, `admin_email`, `admin_password`, `admin_name`, `admin_is_active`) VALUES
+(1, 'mail1@gmsail.elo', '$2y$10$7OsDf99FJ8eNFa1RHjVyZ.D86KKBOCnqW3l43aytYOtvOg9hQro0K', 'admin1', 'yes'),
+(2, 'mail2@gmsail.elo', '$2y$10$BTdA5JEMV7tZUVt0rrdKWeultztIVsOQ9vVLEuU9BFyEx5u5lBPK2', 'admin2', 'no'),
+(3, 'mail3332@gm.elo', '$2y$10$T4G7d5Z6aLvY1xR3c8SvGe0x.mQ6Cal/vqXbuXuBmuYRFdyWNaV4W', 'admin233', 'no'),
+(4, 'mail3332@1gm.elo', '$2y$10$uAiEs0uW93HQ2xI08iY8BONS5eoRLPYE/lPqwTvyEFXIJ.1lYGrDi', 'admin2331', 'no'),
+(5, 'testadmin@testadmin.elo', '$2y$10$FgmDf1ktSUsFQeSr8eVVv.Yap6/d9JTSMbXd82vMGnpTKvkjWZ3zW', 'testadmin', 'no');
 
 -- --------------------------------------------------------
 
@@ -89,6 +93,28 @@ INSERT INTO `Item` (`item_id`, `item_name`, `item_description`, `item_price`, `i
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Orders`
+--
+
+CREATE TABLE `Orders` (
+  `order_id` int(11) NOT NULL,
+  `order_user_id` int(11) NOT NULL,
+  `order_status` varchar(30) COLLATE utf8_polish_ci DEFAULT 'waiting',
+  `order_items` blob NOT NULL,
+  `order_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Dumping data for table `Orders`
+--
+
+INSERT INTO `Orders` (`order_id`, `order_user_id`, `order_status`, `order_items`, `order_date`) VALUES
+(4, 5, 'waiting', 0x687961736663686a78616166736664, '2017-01-15 00:00:00'),
+(5, 5, 'waiting', 0x687961736663686a727272727278616166736664, '2017-01-15 15:19:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Photo`
 --
 
@@ -130,7 +156,9 @@ INSERT INTO `User` (`user_id`, `user_name`, `user_surname`, `user_email`, `user_
 (6, 'name1', 'surname1', 'mail3@elo.gmail', '$2y$10$4JtxuwQdN2a82C4aJUkF4uQq.BktKp9GOP0isYrlZu/L.yxfKOJV2', 0x61647265732031),
 (7, 'name1', 'surname1', 'mail4@elo.gmail', '$2y$10$U5Me2v9ue1Ce6/bG.mdUTOt9vg9UbDdx4mlIQ2XCmKda/Fzmbux72', 0x61647265732031),
 (8, 'name1', 'surname1', 'mail5@elo.gmail', '$2y$10$jhb5N2iNJweWOLUgFgCHP.pf2tqXtsjy1bRjy8yW5QdLn6/4OHDdW', 0x61647265732031),
-(9, 'name1', 'surname1', 'mail7@elo.gmail', '$2y$10$Mh3A8f9eqX1Uck1hAuwJnu1nLPFDWjGyBxP3JHoHNrvydgvZZFhjy', 0x61647265732031);
+(9, 'name1', 'surname1', 'mail7@elo.gmail', '$2y$10$Mh3A8f9eqX1Uck1hAuwJnu1nLPFDWjGyBxP3JHoHNrvydgvZZFhjy', 0x61647265732031),
+(10, 'jan', 'Kowalski', 'mail@gmail.elo', '$2y$10$OCGpkxwf7zl1YYQnByiktuw.3yVWb8O0VwRqxvP.N3UmV1G5TxcKi', 0x616472657320737461636a6f6e61726e79),
+(11, 'JAn', 'Kowalski', 'mail11@gmail.elo', '$2y$10$n1emGe8id6i3TthTrQavi.D0eBpuRSuUI7GHC7g2Av5hgUhGiYXT6', 0x616472657320646c7567696969696969696969696969202020737461636a6f6e61726e79);
 
 --
 -- Indexes for dumped tables
@@ -158,6 +186,13 @@ ALTER TABLE `Item`
   ADD UNIQUE KEY `item_name` (`item_name`);
 
 --
+-- Indexes for table `Orders`
+--
+ALTER TABLE `Orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `order_user_id` (`order_user_id`);
+
+--
 -- Indexes for table `Photo`
 --
 ALTER TABLE `Photo`
@@ -179,30 +214,41 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `Admin`
 --
 ALTER TABLE `Admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `Category`
 --
 ALTER TABLE `Category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `Item`
 --
 ALTER TABLE `Item`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
+-- AUTO_INCREMENT for table `Orders`
+--
+ALTER TABLE `Orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `Photo`
 --
 ALTER TABLE `Photo`
-  MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `Orders`
+--
+ALTER TABLE `Orders`
+  ADD CONSTRAINT `Orders_ibfk_1` FOREIGN KEY (`order_user_id`) REFERENCES `User` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `Photo`
