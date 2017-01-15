@@ -49,7 +49,7 @@ class Orders {
     public function setOrderStatus($status) {
         $status = htmlentities($status, ENT_QUOTES, "UTF-8");
         
-        if (is_string($status) && ($status == 'wating' || $status == 'confirmed'
+        if (is_string($status) && ($status == 'waiting' || $status == 'confirmed'
                 || $status == paid || $status == completed)) {
             $this->orderStatus = $status;
             return $this;
@@ -75,7 +75,7 @@ class Orders {
         return $this;
     }
 
-    // jutro...
+    // 
     
     
     
