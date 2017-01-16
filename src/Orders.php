@@ -58,22 +58,17 @@ class Orders {
         }
     }
     
-    public function setOrderItems($items) {
-        $items = htmlentities($items, ENT_QUOTES, "UTF-8");
+    public function setOrderItems($itemsArray) {
+        $itemsString = serialize($itemsArray);
+        $itemsString = htmlentities($itemsString, ENT_QUOTES, "UTF-8");
         
-        if (is_string($items) && (strlen($items) <= 65000)) {
-            $this->orderItems = $items;
+        if (is_string($itemsString) && (strlen($itemsString) <= 65000)) {
+            $this->orderItems = $itemsString;
             return $this;
         } else {
             return false;
         }
     }
-    /*
-    public function setOrderDate() {
-       // $date = htmlentities($date, ENT_QUOTES, "UTF-8");
-        $this->orderDate = date("Y-m-d H:i:s");
-        return $this;
-    } */
 
     public function saveOrderToDb(mysqli $conn) {
         if ($this->orderId == -1) {
