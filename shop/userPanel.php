@@ -8,7 +8,7 @@ session_start();
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title> tytuł </title>
+	<title> Panel użytkownika </title>
 <!--	
 	<meta name="description" content="krotki opis" />
 	<meta name="keywords" content="kluczowe" />
@@ -26,11 +26,9 @@ session_start();
     </div>
 
     <div class="content">
-      <!-- Strona główna
-Ma mieć miejsce do zalogowania się, link do
-rejestracji, menu z wszystkimi grupami
-przedmiotów i karuzelę z kilkoma wybranymi
-przedmiotami. -->
+      <!-- Panel użytkownika Strona ta ma mieć informacje o użytkowniku,
+      dawać opcje zmiany tych informacji, pokazywać wszystkie poprzednie zakupy tego użytkownika.
+      Użytkownik może zobaczyć tylko swój panel. -->
 
 
 

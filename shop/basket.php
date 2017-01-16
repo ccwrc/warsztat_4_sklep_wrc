@@ -26,11 +26,12 @@ session_start();
     </div>
 
     <div class="content">
-      <!-- Strona główna
-Ma mieć miejsce do zalogowania się, link do
-rejestracji, menu z wszystkimi grupami
-przedmiotów i karuzelę z kilkoma wybranymi
-przedmiotami. -->
+      <!-- Strona koszyka Na tej stronie powinny być następujące możliwości dotyczące przedmiotów 
+      znajdujących się w koszyku:
+      wyświetlenie wszystkich przedmiotów,
+      zmiana liczby przedmiotów,
+      całkowite usunięcie przedmiotów,
+      wyświetlenie łącznej kwoty zamówienia. -->
 
 
 

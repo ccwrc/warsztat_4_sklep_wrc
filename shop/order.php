@@ -8,7 +8,7 @@ session_start();
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title> tytuł </title>
+	<title> Zamówienie </title>
 <!--	
 	<meta name="description" content="krotki opis" />
 	<meta name="keywords" content="kluczowe" />
@@ -26,11 +26,13 @@ session_start();
     </div>
 
     <div class="content">
-      <!-- Strona główna
-Ma mieć miejsce do zalogowania się, link do
-rejestracji, menu z wszystkimi grupami
-przedmiotów i karuzelę z kilkoma wybranymi
-przedmiotami. -->
+      <!-- Strona zamówienia Ta strona ma pokazywać wszystkie informacje na
+      temat zamówienia. Użytkownik może widzieć tylko swoje zamówienia.
+      Strona musi przyjąć wszystkie informacje dotyczące zamówienia:
+      przedmioty i ich liczba,
+      dane użytkownika (w tym adres do wysyłki),
+      całkowita kwota zamówienia,
+      informacje dotyczące płatności. -->
 
 
 

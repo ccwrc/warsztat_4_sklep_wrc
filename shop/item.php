@@ -8,7 +8,7 @@ session_start();
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title> tytuł </title>
+	<title> Szczegóły produktu </title>
 <!--	
 	<meta name="description" content="krotki opis" />
 	<meta name="keywords" content="kluczowe" />
@@ -26,11 +26,9 @@ session_start();
     </div>
 
     <div class="content">
-      <!-- Strona główna
-Ma mieć miejsce do zalogowania się, link do
-rejestracji, menu z wszystkimi grupami
-przedmiotów i karuzelę z kilkoma wybranymi
-przedmiotami. -->
+      <!-- Strona przedmiotu Na tej stronie wyświetla się opis przedmiotu oraz
+      jego zdjęcia w postaci karuzeli. Jest też możliwość dodania przedmiotu do koszyka obecnie
+      zalogowanego użytkownika. -->
 
 
 
@@ -43,5 +41,6 @@ przedmiotami. -->
   </div>  
 </body>
 </html>
+
 
 
