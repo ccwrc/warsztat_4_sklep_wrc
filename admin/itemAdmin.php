@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['loggedAdminId'])) {
+    header("location: panelAdmin.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE HTML>
